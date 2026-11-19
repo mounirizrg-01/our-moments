@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import './App.css'
 import { AuthForm } from './features/auth/AuthForm'
+import { CoupleWorkspace } from './features/couple/CoupleWorkspace'
 import { getSupabaseClient } from './lib/supabase/client'
 
 function App() {
@@ -56,22 +57,22 @@ function App() {
       {loading ? (
         <p className="text-slate-600">Loading your space…</p>
       ) : session ? (
-        <section className="w-full max-w-md rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
-          <h1 className="text-3xl font-bold text-slate-900">Welcome to Our Moments</h1>
-          <p className="mt-3 text-slate-600">Signed in as {session.user.email}</p>
+        <div className="flex w-full max-w-md flex-col items-center gap-4">
           {errorMessage && (
-            <p className="mt-4 text-sm text-red-700" role="alert">
+            <p className="w-full text-sm text-red-700" role="alert">
               {errorMessage}
             </p>
           )}
+          <CoupleWorkspace userId={session.user.id} />
+          <p className="text-sm text-slate-600">Signed in as {session.user.email}</p>
           <button
-            className="mt-6 rounded-lg border border-slate-300 px-4 py-2 font-semibold text-slate-700 hover:bg-slate-50"
+            className="rounded-lg border border-slate-300 px-4 py-2 font-semibold text-slate-700 hover:bg-white"
             onClick={signOut}
             type="button"
           >
             Sign out
           </button>
-        </section>
+        </div>
       ) : (
         <AuthForm />
       )}

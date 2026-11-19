@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
+import type { Database } from './database.types'
 
 export function createSupabaseClient(
   url: string | undefined,
@@ -10,7 +11,7 @@ export function createSupabaseClient(
     )
   }
 
-  return createClient(url, publishableKey)
+  return createClient<Database>(url, publishableKey)
 }
 
 let client: ReturnType<typeof createSupabaseClient> | undefined
