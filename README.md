@@ -170,7 +170,7 @@ and the production build. Apply all package upgrades deliberately.
 ### Milestone 1: Project Foundation
 
 - Initialize React, Vite, TypeScript, Tailwind, ESLint, and Prettier.
-- Configure public environment variables for the Supabase project URL and anonymous key.
+- Configure public environment variables for the Supabase project URL and publishable key.
 - Add a baseline health page and unit test.
 - Configure Vitest and Playwright.
 - Create the GitHub Pages deployment workflow.
@@ -280,11 +280,14 @@ The development server prints a local URL, usually `http://localhost:5173`.
 5. Confirm the deployment workflow finishes successfully.
 6. Visit the Pages URL displayed under **Settings > Pages**.
 
-Do not add Supabase credentials yet. Milestone 2 will introduce them, and the production
-workflow will read them from GitHub Actions secrets:
+For local development, store these two client settings in `.env.local` (ignored by Git).
+The GitHub Pages build reads the same settings from GitHub Actions repository secrets:
 
 - `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_ANON_KEY`
+- `VITE_SUPABASE_PUBLISHABLE_KEY`
+
+These are browser-facing Supabase project settings, not database passwords or service-role
+keys. Never put a Supabase secret/service-role key in the Vite app or GitHub Pages build.
 
 ## Quality and Security Rules
 
