@@ -257,11 +257,12 @@ application only after the current workflows are stable.
 
 ## Database Setup
 
-Database changes are stored as ordered SQL files in `supabase/migrations/`. The initial
-workspace migration creates the couple and membership tables, limits each workspace to two
-members, and enables row-level security. Apply each migration once in the Supabase SQL
-Editor, then keep the SQL file in Git so the schema can be reproduced. Never put a
-service-role key or database password in the browser app.
+Database changes are stored as ordered SQL files in `supabase/migrations/`. The workspace
+migration creates the couple and membership tables, limits each workspace to two members,
+and enables row-level security. The invite migration adds a one-time code that expires after
+seven days. Apply each migration once in the Supabase SQL Editor, then keep the SQL file in
+Git so the schema can be reproduced. Never put a service-role key or database password in
+the browser app.
 
 ## Local Development
 

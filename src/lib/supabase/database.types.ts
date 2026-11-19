@@ -65,6 +65,19 @@ export interface Database {
         }
         Returns: boolean
       }
+      create_couple_invite: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          expires_at: string
+          invite_code: string
+        }[]
+      }
+      accept_couple_invite: {
+        Args: {
+          p_invite_code: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never

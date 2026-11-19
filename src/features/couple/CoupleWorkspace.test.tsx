@@ -55,4 +55,38 @@ describe('CoupleWorkspace', () => {
     expect(await screen.findByRole('alert')).toHaveTextContent('Permission denied')
     expect(supabase.rpc).not.toHaveBeenCalled()
   })
+
+  it('lets the owner generate a one-time invite code', async () => {
+    const inviteCode = 'a'.repeat(64)
+    supabase.rpc.mockImplementation((functionName: string) =>
+      Promise.resolve(
+        functionName === 'create_couple'
+          ? { data: 'couple-id', error: null }
+          : { data: [{ invite_code: inviteCode }], error: null },
+      ),
+    )
+    render(<CoupleWorkspace userId="user-id" />)
+
+    fireEvent.change(await screen.findByLabelText('Shared space name'), {
+      target: { value: 'Our Moments' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Create shared space' }))
+    fireEvent.click(await screen.findByRole('button', { name: 'Create invite code' }))
+
+    expect(await screen.findByLabelText('One-time invite code')).toHaveValue(inviteCode)
+    expect(supabase.rpc).toHaveBeenLastCalledWith('create_couple_invite')
+  })
+
+  it('offers joining a workspace with an invite code', async () => {
+    render(<CoupleWorkspace userId="user-id" />)
+
+    fireEvent.click(
+      await screen.findByRole('button', { name: 'I have an invite code' }),
+    )
+
+    expect(
+      screen.getByRole('heading', { name: 'Join your partner' }),
+    ).toBeInTheDocument()
+    expect(screen.getByLabelText('Invite code')).toBeRequired()
+  })
 })
