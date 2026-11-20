@@ -123,6 +123,54 @@ export interface Database {
         }
         Relationships: []
       }
+      memories: {
+        Row: {
+          couple_id: string
+          created_at: string
+          created_by: string
+          id: string
+          image_path: string | null
+          location: string | null
+          memory_date: string | null
+          memory_type: 'memory' | 'place' | 'recipe' | 'trip' | 'gift' | 'other'
+          notes: string | null
+          rating: number | null
+          tags: string[]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          couple_id: string
+          created_at?: string
+          created_by?: string
+          id?: string
+          image_path?: string | null
+          location?: string | null
+          memory_date?: string | null
+          memory_type?: 'memory' | 'place' | 'recipe' | 'trip' | 'gift' | 'other'
+          notes?: string | null
+          rating?: number | null
+          tags?: string[]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          couple_id?: string
+          created_at?: string
+          created_by?: string
+          id?: string
+          image_path?: string | null
+          location?: string | null
+          memory_date?: string | null
+          memory_type?: 'memory' | 'place' | 'recipe' | 'trip' | 'gift' | 'other'
+          notes?: string | null
+          rating?: number | null
+          tags?: string[]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

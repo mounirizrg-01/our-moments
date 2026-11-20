@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { getSupabaseClient } from '../../lib/supabase/client'
 import { ActivityBoard } from '../activities/ActivityBoard'
+import { MemoryBoard } from '../memories/MemoryBoard'
 import { OccasionsPanel } from '../occasions/OccasionsPanel'
 
 interface CoupleWorkspaceRecord {
@@ -240,6 +241,7 @@ export function CoupleWorkspace({ userId }: CoupleWorkspaceProps) {
         </section>
         <OccasionsPanel coupleId={workspace.id} />
         <ActivityBoard coupleId={workspace.id} />
+        <MemoryBoard coupleId={workspace.id} />
       </div>
     )
   }

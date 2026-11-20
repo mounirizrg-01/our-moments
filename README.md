@@ -29,8 +29,7 @@ authentication, PostgreSQL storage, and authorization policies.
 - Hosting must remain on the GitHub Pages free tier.
 - GitHub Pages serves static files and cannot run Next.js server code or API routes.
 - Public source code is acceptable only if database data is protected by Supabase RLS policies.
-- Images are not stored in the application database. The MVP may start by storing external
-  image URLs, then migrate to an object-storage provider.
+- Images are compressed in the browser and stored in a private Supabase Storage bucket.
 
 ### Out of Scope for the MVP
 
@@ -214,7 +213,7 @@ and the production build. Apply all package upgrades deliberately.
 
 ### Milestone 6: Memories and Saved Information
 
-- Add text records and optional external image links.
+- Add text records and optional compressed image uploads.
 - Record dates, locations, ratings, and tags.
 - Implement search and filtering.
 
@@ -261,8 +260,9 @@ Database changes are stored as ordered SQL files in `supabase/migrations/`. The 
 migration creates the couple and membership tables, limits each workspace to two members,
 and enables row-level security. The invite migration adds a one-time code that expires after
 seven days. The occasions and activity migrations add couple-scoped records and RLS
-policies. Apply each migration once in the Supabase SQL Editor, then keep the SQL file in Git
-so the schema can be reproduced. Never put a service-role key or database password in the
+policies. The memories migrations add saved information, tags, locations, ratings, and
+private compressed image uploads. Apply each migration once in the Supabase SQL Editor, then keep the SQL file in
+Git so the schema can be reproduced. Never put a service-role key or database password in the
 browser app.
 
 ## Local Development
