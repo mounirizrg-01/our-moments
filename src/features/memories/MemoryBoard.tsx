@@ -19,6 +19,25 @@ const memoryTypes: { value: MemoryType; label: string }[] = [
   { value: 'other', label: 'Other' },
 ]
 
+const memoryCardColors = [
+  '#9f1239',
+  '#9a3412',
+  '#166534',
+  '#1e40af',
+  '#6b21a8',
+  '#155e75',
+  '#854d0e',
+  '#334155',
+]
+
+function getMemoryCardColor(id: string) {
+  let hash = 0
+  for (const character of id) {
+    hash = (hash * 31 + character.charCodeAt(0)) >>> 0
+  }
+  return memoryCardColors[hash % memoryCardColors.length]
+}
+
 function parseTags(value: string) {
   return Array.from(
     new Set(
@@ -471,33 +490,46 @@ export function MemoryBoard({ coupleId }: MemoryBoardProps) {
             {search ? 'No saved items match your search.' : 'No memories saved yet.'}
           </p>
         ) : (
-          <ul className="mt-3 divide-y divide-slate-100">
+          <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {visibleMemories.map((memory) => (
               <li
-                className="flex flex-col gap-3 py-4 sm:flex-row sm:items-start sm:justify-between"
+                className="flex min-h-72 flex-col justify-between overflow-hidden rounded-2xl bg-cover bg-center p-4 text-white shadow-sm ring-1 ring-black/10"
                 key={memory.id}
+                style={{
+                  backgroundColor: getMemoryCardColor(memory.id),
+                  backgroundImage: signedImageUrls[memory.id]
+                    ? `linear-gradient(180deg, rgba(15, 23, 42, 0.08) 0%, rgba(15, 23, 42, 0.88) 100%), url("${signedImageUrls[memory.id]}")`
+                    : 'linear-gradient(180deg, rgba(15, 23, 42, 0.08) 0%, rgba(15, 23, 42, 0.72) 100%)',
+                }}
               >
                 <div className="min-w-0">
-                  <p className="font-semibold text-slate-900">{memory.title}</p>
-                  <p className="mt-1 text-sm text-slate-600">
+                  <p className="text-lg font-semibold text-white drop-shadow-sm">{memory.title}</p>
+                  <p className="mt-1 text-sm text-white/90">
                     {memoryTypes.find((option) => option.value === memory.memory_type)?.label}
                     {memory.location && ` · ${memory.location}`}
                     {memory.memory_date && ` · ${memory.memory_date}`}
                     {memory.rating && ` · ${memory.rating}/5`}
                   </p>
                   {memory.tags.length > 0 && (
-                    <p className="mt-2 text-sm text-rose-700">
-                      {memory.tags.map((tag) => `#${tag}`).join('  ')}
-                    </p>
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {memory.tags.map((tag) => (
+                        <span
+                          className="rounded-full bg-white/20 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm"
+                          key={tag}
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
                   )}
                   {memory.notes && (
-                    <p className="mt-2 whitespace-pre-wrap text-sm text-slate-600">
+                    <p className="mt-3 line-clamp-4 whitespace-pre-wrap text-sm text-white/90">
                       {memory.notes}
                     </p>
                   )}
                   {memory.image_path && signedImageUrls[memory.id] && (
                     <a
-                      className="mt-2 inline-block text-sm font-medium text-rose-700 hover:underline"
+                      className="mt-3 inline-block text-sm font-semibold text-white underline decoration-white/60 underline-offset-2 hover:decoration-white"
                       href={signedImageUrls[memory.id]}
                       rel="noreferrer"
                       target="_blank"
@@ -506,16 +538,16 @@ export function MemoryBoard({ coupleId }: MemoryBoardProps) {
                     </a>
                   )}
                 </div>
-                <div className="flex shrink-0 gap-2">
+                <div className="mt-5 flex shrink-0 gap-2">
                   <button
-                    className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                    className="rounded-lg border border-white/40 bg-black/20 px-3 py-1.5 text-sm font-semibold text-white backdrop-blur-sm hover:bg-black/35"
                     onClick={() => beginEdit(memory)}
                     type="button"
                   >
                     Edit
                   </button>
                   <button
-                    className="rounded-lg border border-red-200 px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-60"
+                    className="rounded-lg border border-white/40 bg-black/20 px-3 py-1.5 text-sm font-semibold text-white backdrop-blur-sm hover:bg-black/35 disabled:opacity-60"
                     disabled={saving}
                     onClick={() => void deleteMemory(memory)}
                     type="button"

@@ -136,6 +136,32 @@ describe('MemoryBoard', () => {
     expect(screen.getByText('Lake day')).toBeInTheDocument()
   })
 
+  it('uses uploaded photos as card backgrounds and colors cards without photos', async () => {
+    query.order.mockResolvedValue({
+      data: [
+        makeMemory({ id: 'memory-with-image', image_path: 'couple-id/photo.webp' }),
+        makeMemory({ id: 'memory-without-image', title: 'Coffee date', image_path: null }),
+      ],
+      error: null,
+    })
+    render(<MemoryBoard coupleId="couple-id" />)
+
+    await waitFor(() => {
+      expect(storageBucket.createSignedUrl).toHaveBeenCalledWith(
+        'couple-id/photo.webp',
+        3600,
+      )
+    })
+
+    const photoCard = screen.getByText('Lake day').closest('li')
+    const colorCard = screen.getByText('Coffee date').closest('li')
+    expect(photoCard).toHaveStyle(
+      'background-image: linear-gradient(180deg, rgba(15, 23, 42, 0.08) 0%, rgba(15, 23, 42, 0.88) 100%), url("https://example.supabase.co/signed-image")',
+    )
+    expect(colorCard?.style.backgroundColor).toMatch(/^rgb\(/)
+    expect(colorCard?.style.backgroundImage).toContain('linear-gradient')
+  })
+
   it('shows database errors instead of hiding them', async () => {
     query.order.mockResolvedValue({
       data: null,
