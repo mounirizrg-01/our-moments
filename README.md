@@ -260,9 +260,10 @@ application only after the current workflows are stable.
 Database changes are stored as ordered SQL files in `supabase/migrations/`. The workspace
 migration creates the couple and membership tables, limits each workspace to two members,
 and enables row-level security. The invite migration adds a one-time code that expires after
-seven days. The occasions migration adds couple-scoped dates and RLS policies. Apply each
-migration once in the Supabase SQL Editor, then keep the SQL file in Git so the schema can be
-reproduced. Never put a service-role key or database password in the browser app.
+seven days. The occasions and activity migrations add couple-scoped records and RLS
+policies. Apply each migration once in the Supabase SQL Editor, then keep the SQL file in Git
+so the schema can be reproduced. Never put a service-role key or database password in the
+browser app.
 
 ## Local Development
 

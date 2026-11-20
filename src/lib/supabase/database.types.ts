@@ -87,6 +87,42 @@ export interface Database {
         }
         Relationships: []
       }
+      activity_suggestions: {
+        Row: {
+          category: 'food' | 'outdoors' | 'at_home' | 'date_night' | 'travel' | 'other'
+          couple_id: string
+          created_at: string
+          created_by: string
+          details: string | null
+          id: string
+          status: 'idea' | 'planned' | 'done'
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: 'food' | 'outdoors' | 'at_home' | 'date_night' | 'travel' | 'other'
+          couple_id: string
+          created_at?: string
+          created_by?: string
+          details?: string | null
+          id?: string
+          status?: 'idea' | 'planned' | 'done'
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: 'food' | 'outdoors' | 'at_home' | 'date_night' | 'travel' | 'other'
+          couple_id?: string
+          created_at?: string
+          created_by?: string
+          details?: string | null
+          id?: string
+          status?: 'idea' | 'planned' | 'done'
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

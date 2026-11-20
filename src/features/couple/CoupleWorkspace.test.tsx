@@ -22,6 +22,11 @@ describe('CoupleWorkspace', () => {
     order: vi.fn(),
     select: vi.fn(),
   }
+  const activityQuery = {
+    eq: vi.fn(),
+    order: vi.fn(),
+    select: vi.fn(),
+  }
 
   beforeEach(() => {
     memberQuery.select.mockReturnThis()
@@ -30,8 +35,15 @@ describe('CoupleWorkspace', () => {
     occasionQuery.select.mockReturnThis()
     occasionQuery.eq.mockReturnThis()
     occasionQuery.order.mockResolvedValue({ data: [], error: null })
+    activityQuery.select.mockReturnThis()
+    activityQuery.eq.mockReturnThis()
+    activityQuery.order.mockResolvedValue({ data: [], error: null })
     supabase.from.mockReset().mockImplementation((table: string) =>
-      table === 'occasions' ? occasionQuery : memberQuery,
+      table === 'occasions'
+        ? occasionQuery
+        : table === 'activity_suggestions'
+          ? activityQuery
+          : memberQuery,
     )
     supabase.rpc.mockReset().mockResolvedValue({
       data: 'couple-id',
