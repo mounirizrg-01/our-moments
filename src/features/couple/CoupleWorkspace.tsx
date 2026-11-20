@@ -18,6 +18,14 @@ interface Workspace {
 
 type WorkspaceTab = 'dashboard' | 'dates' | 'activities' | 'memories' | 'reminders'
 
+const workspaceTabs: { value: WorkspaceTab; label: string }[] = [
+  { value: 'dashboard', label: 'Dashboard' },
+  { value: 'dates', label: 'Important dates' },
+  { value: 'activities', label: 'Activities' },
+  { value: 'memories', label: 'Memories' },
+  { value: 'reminders', label: 'Reminders' },
+]
+
 export function CoupleWorkspace({ userId }: CoupleWorkspaceProps) {
   const [workspace, setWorkspace] = useState<Workspace | null>(null)
   const [loading, setLoading] = useState(true)
@@ -286,17 +294,31 @@ export function CoupleWorkspace({ userId }: CoupleWorkspaceProps) {
   return (
     <div className="flex w-full max-w-5xl flex-col items-center gap-6">
       <h1 className="app-title text-3xl font-bold text-slate-900">{workspace.name}</h1>
+      <div className="w-full max-w-3xl sm:hidden">
+        <label className="sr-only" htmlFor="workspace-section">
+          Workspace section
+        </label>
+        <select
+          className="app-section-select w-full border border-slate-200 px-4 py-3 font-semibold text-slate-700 shadow-sm"
+          id="workspace-section"
+          onChange={(event) => {
+            const nextTab = workspaceTabs.find(({ value }) => value === event.target.value)
+            if (nextTab) setTab(nextTab.value)
+          }}
+          value={tab}
+        >
+          {workspaceTabs.map(({ value, label }) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
+      </div>
       <nav
         aria-label="Workspace sections"
-        className="app-nav grid w-full max-w-3xl grid-cols-2 gap-2 rounded-2xl bg-white p-2 shadow-sm ring-1 ring-slate-200 sm:grid-cols-5"
+        className="app-nav hidden w-full max-w-3xl grid-cols-5 gap-2 rounded-2xl bg-white p-2 shadow-sm ring-1 ring-slate-200 sm:grid"
       >
-        {[
-          ['dashboard', 'Dashboard'],
-          ['dates', 'Important dates'],
-          ['activities', 'Activities'],
-          ['memories', 'Memories'],
-          ['reminders', 'Reminders'],
-        ].map(([value, label]) => (
+        {workspaceTabs.map(({ value, label }) => (
           <button
             className={
               tab === value
@@ -304,7 +326,7 @@ export function CoupleWorkspace({ userId }: CoupleWorkspaceProps) {
                 : 'app-nav-link rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-rose-50'
             }
             key={value}
-            onClick={() => setTab(value as WorkspaceTab)}
+            onClick={() => setTab(value)}
             type="button"
           >
             {label}

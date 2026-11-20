@@ -61,6 +61,18 @@
   transform: translateY(-2px);
 }
 
+.app-section-select {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #7e22ce 50%),
+    linear-gradient(135deg, #7e22ce 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.25rem) 50%,
+    calc(100% - 1rem) 50%;
+  background-repeat: no-repeat;
+  background-size: 6px 6px;
+}
+
 .app-nav-active {
   background-image: linear-gradient(120deg, #db2777, #7e22ce);
   box-shadow: 0 8px 18px -8px rgb(126 34 206 / 62%);

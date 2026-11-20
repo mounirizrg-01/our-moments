@@ -75,6 +75,10 @@ describe('CoupleWorkspace', () => {
       })
     })
     expect(await screen.findByRole('heading', { name: 'Our Moments' })).toBeInTheDocument()
+    fireEvent.change(screen.getByLabelText('Workspace section'), {
+      target: { value: 'dates' },
+    })
+    expect(await screen.findByRole('heading', { name: 'Important dates' })).toBeInTheDocument()
   })
 
   it('shows database errors instead of a success state', async () => {
