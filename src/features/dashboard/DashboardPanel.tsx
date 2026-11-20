@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getSupabaseClient } from '../../lib/supabase/client'
+import { getUpcomingOccasions } from './getUpcomingOccasions'
 
 interface DashboardPanelProps {
   coupleId: string
@@ -10,6 +11,10 @@ interface Occasion {
   title: string
   occasion_date: string
   repeats_yearly: boolean
+}
+
+interface UpcomingOccasion extends Occasion {
+  nextDate: Date
 }
 
 interface Activity {
@@ -25,7 +30,7 @@ interface Memory {
 }
 
 export function DashboardPanel({ coupleId }: DashboardPanelProps) {
-  const [occasions, setOccasions] = useState<Occasion[]>([])
+  const [occasions, setOccasions] = useState<UpcomingOccasion[]>([])
   const [activities, setActivities] = useState<Activity[]>([])
   const [memories, setMemories] = useState<Memory[]>([])
   const [loading, setLoading] = useState(true)
@@ -44,9 +49,7 @@ export function DashboardPanel({ coupleId }: DashboardPanelProps) {
           supabase
             .from('occasions')
             .select('id, title, occasion_date, repeats_yearly')
-            .eq('couple_id', coupleId)
-            .order('occasion_date', { ascending: true })
-            .limit(5),
+            .eq('couple_id', coupleId),
           supabase
             .from('activity_suggestions')
             .select('id, title, status')
@@ -67,7 +70,11 @@ export function DashboardPanel({ coupleId }: DashboardPanelProps) {
         if (memoryResult.error) throw memoryResult.error
         if (!active) return
 
-        setOccasions(occasionResult.data as Occasion[])
+        setOccasions(
+          getUpcomingOccasions(occasionResult.data as Occasion[]).map(
+            ({ occasion, nextDate }) => ({ ...occasion, nextDate }),
+          ),
+        )
         setActivities(activityResult.data as Activity[])
         setMemories(memoryResult.data as Memory[])
       } catch (error) {
@@ -115,7 +122,7 @@ export function DashboardPanel({ coupleId }: DashboardPanelProps) {
                       {new Intl.DateTimeFormat(undefined, {
                         month: 'short',
                         day: 'numeric',
-                      }).format(new Date(`${occasion.occasion_date}T00:00:00`))}
+                      }).format(occasion.nextDate)}
                       {occasion.repeats_yearly ? ' · yearly' : ''}
                     </span>
                   </li>

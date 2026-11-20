@@ -3,11 +3,11 @@ export interface OccasionDate {
   repeats_yearly: boolean
 }
 
-export function getUpcomingOccasions(
-  occasions: OccasionDate[],
+export function getUpcomingOccasions<T extends OccasionDate>(
+  occasions: T[],
   today = new Date(),
   limit = 5,
-) {
+): { occasion: T; nextDate: Date }[] {
   const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate())
 
   return occasions
