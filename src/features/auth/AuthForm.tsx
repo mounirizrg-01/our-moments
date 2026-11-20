@@ -45,8 +45,8 @@ export function AuthForm() {
   }
 
   return (
-    <section className="w-full max-w-md rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
-      <h1 className="text-3xl font-bold text-slate-900">Our Moments</h1>
+    <section className="app-panel w-full max-w-md rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
+      <h1 className="app-hero-title text-3xl font-bold text-slate-900">Our Moments</h1>
       <p className="mt-2 text-slate-600">
         {mode === 'sign-in' ? 'Sign in to your shared space.' : 'Create your account to get started.'}
       </p>

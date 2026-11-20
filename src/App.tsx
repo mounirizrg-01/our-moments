@@ -53,7 +53,7 @@ function App() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-rose-50 px-6 py-10">
+    <main className="app-shell flex min-h-screen items-center justify-center px-6 py-10">
       {loading ? (
         <p className="text-slate-600">Loading your space…</p>
       ) : session ? (

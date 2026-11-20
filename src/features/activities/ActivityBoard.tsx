@@ -174,7 +174,7 @@ export function ActivityBoard({ coupleId }: ActivityBoardProps) {
   }
 
   return (
-    <section className="w-full max-w-3xl rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8">
+    <section className="app-panel w-full max-w-3xl rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8">
       <div>
         <h2 className="text-2xl font-bold text-slate-900">Activity ideas</h2>
         <p className="mt-1 text-slate-600">
@@ -297,10 +297,10 @@ export function ActivityBoard({ coupleId }: ActivityBoardProps) {
         ) : activities.length === 0 ? (
           <p className="mt-3 text-sm text-slate-600">No activity ideas saved yet.</p>
         ) : (
-          <ul className="mt-3 divide-y divide-slate-100">
+          <ul className="mt-3 space-y-2">
             {activities.map((activity) => (
               <li
-                className="flex flex-col gap-3 py-4 sm:flex-row sm:items-start sm:justify-between"
+                className="list-row flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"
                 key={activity.id}
               >
                 <div>

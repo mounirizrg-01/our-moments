@@ -308,7 +308,7 @@ export function MemoryBoard({ coupleId }: MemoryBoardProps) {
   })
 
   return (
-    <section className="w-full max-w-3xl rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8">
+    <section className="app-panel w-full max-w-3xl rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8">
       <div>
         <h2 className="text-2xl font-bold text-slate-900">Memories and saved information</h2>
         <p className="mt-1 text-slate-600">
@@ -493,7 +493,7 @@ export function MemoryBoard({ coupleId }: MemoryBoardProps) {
           <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {visibleMemories.map((memory) => (
               <li
-                className="flex min-h-72 flex-col justify-between overflow-hidden rounded-2xl bg-cover bg-center p-4 text-white shadow-sm ring-1 ring-black/10"
+                className="memory-card flex min-h-72 flex-col justify-between overflow-hidden rounded-2xl bg-cover bg-center p-4 text-white shadow-sm ring-1 ring-black/10"
                 key={memory.id}
                 style={{
                   backgroundColor: getMemoryCardColor(memory.id),

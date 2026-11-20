@@ -158,7 +158,7 @@ export function RemindersPanel({ coupleId }: RemindersPanelProps) {
   }
 
   return (
-    <section className="w-full max-w-3xl rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8">
+    <section className="app-panel w-full max-w-3xl rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8">
       <div>
         <h2 className="text-2xl font-bold text-slate-900">Reminders</h2>
         <p className="mt-1 text-slate-600">
@@ -238,9 +238,9 @@ export function RemindersPanel({ coupleId }: RemindersPanelProps) {
         ) : reminders.length === 0 ? (
           <p className="mt-3 text-sm text-slate-500">No reminders scheduled.</p>
         ) : (
-          <ul className="mt-3 divide-y divide-slate-100">
+          <ul className="mt-3 space-y-2">
             {reminders.map((reminder) => (
-              <li className="py-4" key={reminder.id}>
+              <li className="list-row" key={reminder.id}>
                 <p className="font-semibold text-slate-900">{reminder.title}</p>
                 <p className="mt-1 text-sm text-slate-600">
                   {formatDateTime(reminder.snoozed_until ?? reminder.remind_at)}

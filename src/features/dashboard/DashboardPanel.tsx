@@ -95,7 +95,7 @@ export function DashboardPanel({ coupleId }: DashboardPanelProps) {
   }, [coupleId])
 
   return (
-    <section className="w-full max-w-3xl rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+    <section className="app-panel w-full max-w-3xl rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
       <h2 className="text-2xl font-bold text-slate-900">Dashboard</h2>
       <p className="mt-1 text-slate-600">A quick look at what matters next.</p>
 
@@ -109,7 +109,7 @@ export function DashboardPanel({ coupleId }: DashboardPanelProps) {
         <p className="mt-6 text-sm text-slate-600">Loading dashboard...</p>
       ) : (
         <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          <article className="rounded-xl border border-slate-200 p-4">
+          <article className="dashboard-card rounded-xl border border-slate-200 p-4">
             <h3 className="font-semibold text-slate-900">Upcoming dates</h3>
             {occasions.length === 0 ? (
               <p className="mt-3 text-sm text-slate-500">No upcoming dates.</p>
@@ -131,7 +131,7 @@ export function DashboardPanel({ coupleId }: DashboardPanelProps) {
             )}
           </article>
 
-          <article className="rounded-xl border border-slate-200 p-4">
+          <article className="dashboard-card rounded-xl border border-slate-200 p-4">
             <h3 className="font-semibold text-slate-900">Planned activities</h3>
             {activities.length === 0 ? (
               <p className="mt-3 text-sm text-slate-500">Nothing planned yet.</p>
@@ -146,7 +146,7 @@ export function DashboardPanel({ coupleId }: DashboardPanelProps) {
             )}
           </article>
 
-          <article className="rounded-xl border border-slate-200 p-4">
+          <article className="dashboard-card rounded-xl border border-slate-200 p-4">
             <h3 className="font-semibold text-slate-900">Recent memories</h3>
             {memories.length === 0 ? (
               <p className="mt-3 text-sm text-slate-500">No memories saved yet.</p>

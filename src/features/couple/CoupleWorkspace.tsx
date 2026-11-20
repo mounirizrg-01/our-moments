@@ -172,7 +172,7 @@ export function CoupleWorkspace({ userId }: CoupleWorkspaceProps) {
 
   if (loading) {
     return (
-      <section className="w-full max-w-3xl rounded-2xl bg-white p-8 text-slate-600 shadow-sm ring-1 ring-slate-200">
+      <section className="app-panel w-full max-w-3xl rounded-2xl bg-white p-8 text-slate-600 shadow-sm ring-1 ring-slate-200">
         Loading shared space...
       </section>
     )
@@ -180,10 +180,10 @@ export function CoupleWorkspace({ userId }: CoupleWorkspaceProps) {
 
   if (!workspace) {
     return (
-      <section className="w-full max-w-md rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
+      <section className="app-panel w-full max-w-md rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
         {mode === 'create' ? (
           <>
-            <h1 className="text-3xl font-bold text-slate-900">Create a shared space</h1>
+            <h1 className="app-hero-title text-3xl font-bold text-slate-900">Create a shared space</h1>
             <p className="mt-2 text-slate-600">
               Create the private space you and your partner will share.
             </p>
@@ -231,7 +231,7 @@ export function CoupleWorkspace({ userId }: CoupleWorkspaceProps) {
           </>
         ) : (
           <>
-            <h1 className="text-3xl font-bold text-slate-900">Join your partner</h1>
+            <h1 className="app-hero-title text-3xl font-bold text-slate-900">Join your partner</h1>
             <p className="mt-2 text-slate-600">Enter the private invite code they generated.</p>
 
             <form className="mt-8 space-y-5" onSubmit={joinWorkspace}>
@@ -285,10 +285,10 @@ export function CoupleWorkspace({ userId }: CoupleWorkspaceProps) {
 
   return (
     <div className="flex w-full max-w-5xl flex-col items-center gap-6">
-      <h1 className="text-3xl font-bold text-slate-900">{workspace.name}</h1>
+      <h1 className="app-title text-3xl font-bold text-slate-900">{workspace.name}</h1>
       <nav
         aria-label="Workspace sections"
-        className="grid w-full max-w-3xl grid-cols-2 gap-2 rounded-2xl bg-white p-2 shadow-sm ring-1 ring-slate-200 sm:grid-cols-5"
+        className="app-nav grid w-full max-w-3xl grid-cols-2 gap-2 rounded-2xl bg-white p-2 shadow-sm ring-1 ring-slate-200 sm:grid-cols-5"
       >
         {[
           ['dashboard', 'Dashboard'],
@@ -300,8 +300,8 @@ export function CoupleWorkspace({ userId }: CoupleWorkspaceProps) {
           <button
             className={
               tab === value
-                ? 'rounded-xl bg-rose-600 px-3 py-2 text-sm font-semibold text-white'
-                : 'rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-rose-50'
+                ? 'app-nav-link app-nav-active rounded-xl bg-rose-600 px-3 py-2 text-sm font-semibold text-white'
+                : 'app-nav-link rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-rose-50'
             }
             key={value}
             onClick={() => setTab(value as WorkspaceTab)}
@@ -319,7 +319,7 @@ export function CoupleWorkspace({ userId }: CoupleWorkspaceProps) {
       {tab === 'reminders' && <RemindersPanel coupleId={workspace.id} />}
 
       {workspace.role === 'owner' && (
-        <section className="w-full max-w-3xl rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+        <section className="app-panel w-full max-w-3xl rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
           <h2 className="font-semibold text-slate-900">Invite your partner</h2>
           {inviteCode ? (
             <div className="mt-3">
