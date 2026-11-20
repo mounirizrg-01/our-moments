@@ -57,7 +57,7 @@ function App() {
       {loading ? (
         <p className="text-slate-600">Loading your space…</p>
       ) : session ? (
-        <div className="flex w-full max-w-md flex-col items-center gap-4">
+        <div className="flex w-full max-w-3xl flex-col items-center gap-4">
           {errorMessage && (
             <p className="w-full text-sm text-red-700" role="alert">
               {errorMessage}

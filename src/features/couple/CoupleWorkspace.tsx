@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { getSupabaseClient } from '../../lib/supabase/client'
+import { OccasionsPanel } from '../occasions/OccasionsPanel'
 
 interface CoupleWorkspaceRecord {
   id: string
@@ -177,64 +178,67 @@ export function CoupleWorkspace({ userId }: CoupleWorkspaceProps) {
 
   if (workspace) {
     return (
-      <section className="w-full max-w-md rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
-        <p className="text-sm font-semibold uppercase tracking-wide text-rose-700">
-          Your shared space
-        </p>
-        <h1 className="mt-2 text-3xl font-bold text-slate-900">{workspace.name}</h1>
-        {workspace.memberCount < 2 ? (
-          <div className="mt-5 space-y-4">
-            <p className="text-slate-600">
-              Invite your partner with a one-time code. It expires in 7 days.
-            </p>
-            {workspace.role === 'owner' && !inviteCode && (
-              <button
-                className="w-full rounded-lg bg-rose-600 px-4 py-2.5 font-semibold text-white hover:bg-rose-700 disabled:cursor-not-allowed disabled:opacity-60"
-                disabled={saving}
-                onClick={createInvite}
-                type="button"
-              >
-                {saving ? 'Creating…' : 'Create invite code'}
-              </button>
-            )}
-            {inviteCode && (
-              <div>
-                <label
-                  className="block text-sm font-medium text-slate-700"
-                  htmlFor="generated-invite-code"
-                >
-                  One-time invite code
-                </label>
-                <input
-                  className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 font-mono text-sm text-slate-900"
-                  id="generated-invite-code"
-                  readOnly
-                  value={inviteCode}
-                />
+      <div className="flex w-full flex-col items-center gap-6">
+        <section className="w-full max-w-md rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
+          <p className="text-sm font-semibold uppercase tracking-wide text-rose-700">
+            Your shared space
+          </p>
+          <h1 className="mt-2 text-3xl font-bold text-slate-900">{workspace.name}</h1>
+          {workspace.memberCount < 2 ? (
+            <div className="mt-5 space-y-4">
+              <p className="text-slate-600">
+                Invite your partner with a one-time code. It expires in 7 days.
+              </p>
+              {workspace.role === 'owner' && !inviteCode && (
                 <button
-                  className="mt-3 w-full rounded-lg border border-slate-300 px-4 py-2 font-semibold text-slate-700 hover:bg-slate-50"
-                  onClick={copyInviteCode}
+                  className="w-full rounded-lg bg-rose-600 px-4 py-2.5 font-semibold text-white hover:bg-rose-700 disabled:cursor-not-allowed disabled:opacity-60"
+                  disabled={saving}
+                  onClick={createInvite}
                   type="button"
                 >
-                  Copy invite code
+                  {saving ? 'Creating…' : 'Create invite code'}
                 </button>
-              </div>
-            )}
-          </div>
-        ) : (
-          <p className="mt-3 text-slate-600">You and your partner share this space.</p>
-        )}
-        {errorMessage && (
-          <p className="mt-4 text-sm text-red-700" role="alert">
-            {errorMessage}
-          </p>
-        )}
-        {statusMessage && (
-          <p className="mt-4 text-sm text-green-700" role="status">
-            {statusMessage}
-          </p>
-        )}
-      </section>
+              )}
+              {inviteCode && (
+                <div>
+                  <label
+                    className="block text-sm font-medium text-slate-700"
+                    htmlFor="generated-invite-code"
+                  >
+                    One-time invite code
+                  </label>
+                  <input
+                    className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 font-mono text-sm text-slate-900"
+                    id="generated-invite-code"
+                    readOnly
+                    value={inviteCode}
+                  />
+                  <button
+                    className="mt-3 w-full rounded-lg border border-slate-300 px-4 py-2 font-semibold text-slate-700 hover:bg-slate-50"
+                    onClick={copyInviteCode}
+                    type="button"
+                  >
+                    Copy invite code
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <p className="mt-3 text-slate-600">You and your partner share this space.</p>
+          )}
+          {errorMessage && (
+            <p className="mt-4 text-sm text-red-700" role="alert">
+              {errorMessage}
+            </p>
+          )}
+          {statusMessage && (
+            <p className="mt-4 text-sm text-green-700" role="status">
+              {statusMessage}
+            </p>
+          )}
+        </section>
+        <OccasionsPanel coupleId={workspace.id} />
+      </div>
     )
   }
 

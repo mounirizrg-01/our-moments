@@ -48,6 +48,45 @@ export interface Database {
         }
         Relationships: []
       }
+      occasions: {
+        Row: {
+          category: 'anniversary' | 'birthday' | 'reservation' | 'other'
+          couple_id: string
+          created_at: string
+          created_by: string
+          id: string
+          notes: string | null
+          occasion_date: string
+          repeats_yearly: boolean
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: 'anniversary' | 'birthday' | 'reservation' | 'other'
+          couple_id: string
+          created_at?: string
+          created_by?: string
+          id?: string
+          notes?: string | null
+          occasion_date: string
+          repeats_yearly?: boolean
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: 'anniversary' | 'birthday' | 'reservation' | 'other'
+          couple_id?: string
+          created_at?: string
+          created_by?: string
+          id?: string
+          notes?: string | null
+          occasion_date?: string
+          repeats_yearly?: boolean
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
