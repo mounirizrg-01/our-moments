@@ -3,6 +3,7 @@ import { ActivityBoard } from '../activities/ActivityBoard'
 import { DashboardPanel } from '../dashboard/DashboardPanel'
 import { MemoryBoard } from '../memories/MemoryBoard'
 import { OccasionsPanel } from '../occasions/OccasionsPanel'
+import { RemindersPanel } from '../reminders/RemindersPanel'
 import { getSupabaseClient } from '../../lib/supabase/client'
 
 interface CoupleWorkspaceProps {
@@ -15,7 +16,7 @@ interface Workspace {
   role: 'owner' | 'partner'
 }
 
-type WorkspaceTab = 'dashboard' | 'dates' | 'activities' | 'memories'
+type WorkspaceTab = 'dashboard' | 'dates' | 'activities' | 'memories' | 'reminders'
 
 export function CoupleWorkspace({ userId }: CoupleWorkspaceProps) {
   const [workspace, setWorkspace] = useState<Workspace | null>(null)
@@ -287,13 +288,14 @@ export function CoupleWorkspace({ userId }: CoupleWorkspaceProps) {
       <h1 className="text-3xl font-bold text-slate-900">{workspace.name}</h1>
       <nav
         aria-label="Workspace sections"
-        className="grid w-full max-w-3xl grid-cols-2 gap-2 rounded-2xl bg-white p-2 shadow-sm ring-1 ring-slate-200 sm:grid-cols-4"
+        className="grid w-full max-w-3xl grid-cols-2 gap-2 rounded-2xl bg-white p-2 shadow-sm ring-1 ring-slate-200 sm:grid-cols-5"
       >
         {[
           ['dashboard', 'Dashboard'],
           ['dates', 'Important dates'],
           ['activities', 'Activities'],
           ['memories', 'Memories'],
+          ['reminders', 'Reminders'],
         ].map(([value, label]) => (
           <button
             className={
@@ -314,6 +316,7 @@ export function CoupleWorkspace({ userId }: CoupleWorkspaceProps) {
       {tab === 'dates' && <OccasionsPanel coupleId={workspace.id} />}
       {tab === 'activities' && <ActivityBoard coupleId={workspace.id} />}
       {tab === 'memories' && <MemoryBoard coupleId={workspace.id} />}
+      {tab === 'reminders' && <RemindersPanel coupleId={workspace.id} />}
 
       {workspace.role === 'owner' && (
         <section className="w-full max-w-3xl rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">

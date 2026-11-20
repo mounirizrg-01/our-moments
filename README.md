@@ -221,10 +221,10 @@ and the production build. Apply all package upgrades deliberately.
 
 ### Milestone 7: Reminders
 
-- Add reminder scheduling to occasions.
-- Review Supabase free-tier scheduling options.
-- Add email delivery only if it fits the free tier and privacy requirements.
-- Add preferences for reminder timing.
+- Add in-app reminder scheduling linked to shared occasions.
+- Add snooze and dismiss actions.
+- Keep reminder state couple-scoped and protected by Row Level Security.
+- Email delivery remains optional until the scheduling path is stable.
 
 **Exit criteria:** scheduled reminders are traceable and duplicate sends are prevented.
 

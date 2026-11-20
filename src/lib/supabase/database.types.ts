@@ -171,6 +171,45 @@ export interface Database {
         }
         Relationships: []
       }
+      reminders: {
+        Row: {
+          couple_id: string
+          created_at: string
+          created_by: string
+          dismissed_at: string | null
+          id: string
+          occasion_id: string | null
+          remind_at: string
+          snoozed_until: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          couple_id: string
+          created_at?: string
+          created_by?: string
+          dismissed_at?: string | null
+          id?: string
+          occasion_id?: string | null
+          remind_at: string
+          snoozed_until?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          couple_id?: string
+          created_at?: string
+          created_by?: string
+          dismissed_at?: string | null
+          id?: string
+          occasion_id?: string | null
+          remind_at?: string
+          snoozed_until?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
